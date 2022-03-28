@@ -47,6 +47,9 @@ AspectRatioOptions,
 
 const aspectRatio: ModifierModule<AspectRatioOptions, AspectRatioState> = {
   start (arg) {
+    if (!arg.state.options.enabled) {
+      return false
+    }
     const { state, rect, edges: originalEdges, pageCoords: coords } = arg
     let { ratio } = state.options
     const { equalDelta, modifiers } = state.options
@@ -90,6 +93,9 @@ const aspectRatio: ModifierModule<AspectRatioOptions, AspectRatioState> = {
   },
 
   set (arg) {
+    if (!arg.state.options.enabled) {
+      return false
+    }
     const { state, rect, coords } = arg
     const initialCoords = extend({}, coords)
     const aspectMethod = state.equalDelta ? setEqualDelta : setRatio
